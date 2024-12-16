@@ -1,13 +1,6 @@
 import EditTaskForm from "@/components/EditTaskForm/EditTaskForm";
 import { TaskDocument } from "@/models/task";
 
-// Paramsをinterfaceとして定義
-interface Params {
-  params: {
-    id: string;
-  };
-}
-
 const getTask = async (id: string): Promise<TaskDocument> => {
   const response = await fetch(`${process.env.API_URL}/tasks/${id}`);
   
@@ -26,7 +19,7 @@ const getTask = async (id: string): Promise<TaskDocument> => {
   return data.task as TaskDocument;
 };
 
-const EditTaskPage = async ({ params }: Params) => {
+const EditTaskPage = async ({ params }: { params: { id: string } }) => {
   const { id } = params; // ここでawaitは不要
   const task = await getTask(id);
   return (

@@ -7,7 +7,7 @@ export async function GET(
 ) {
   try {
     await connectDb();
-    const { id } = context.params;
+    const { id } = context.params; // ここでawaitは不要
     const task = await TaskModel.findById(id);
 
     if (!task) {
