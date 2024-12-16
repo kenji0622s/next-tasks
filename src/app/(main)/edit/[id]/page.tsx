@@ -1,6 +1,7 @@
 import EditTaskForm from "@/components/EditTaskForm/EditTaskForm";
 import { TaskDocument } from "@/models/task";
 
+// Paramsをinterfaceとして定義
 interface Params {
   params: {
     id: string;
