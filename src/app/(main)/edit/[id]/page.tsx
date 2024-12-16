@@ -14,7 +14,7 @@ const getTask = async (id: string): Promise<TaskDocument> => {
 };
 
 const EditTaskPage = async ({ params }: Params) => {
-  const { id } = params;
+  const { id } = await params;
   const task = await getTask(id);
   console.log(task);
   return (

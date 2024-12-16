@@ -1,21 +1,33 @@
-import { NextRequest, NextResponse } from "next/server";
 import { TaskModel } from "@/models/task";
 import { connectDb } from "@/utils/database";
 
-export const GET = async (_: NextRequest, { params }: { params: { id: string } }) => {
+export async function GET(
+  request: Request,
+  context: { params: { id: string } }
+) {
   try {
     await connectDb();
-    const task = await TaskModel.findById(params.id);
+    const { id } = await context.params;
+    const task = await TaskModel.findById(id);
 
     if (!task) {
-      return NextResponse.json({ error: "Task not found" }, { status: 404 });
+      return Response.json(
+        { error: "Task not found" },
+        { status: 404 }
+      );
     }
 
-    return NextResponse.json({ message: "Task fetched successfully", task });
+    return Response.json({
+      message: "Task fetched successfully",
+      task
+    });
   } catch (error) {
     console.log(error);
-    return NextResponse.json({ error: "Failed to fetch task" }, { status: 500 });
+    return Response.json(
+      { error: "Failed to fetch task" },
+      { status: 500 }
+    );
   }
-};
+}
 
 export const dynamic = "force-dynamic";
